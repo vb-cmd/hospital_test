@@ -1,0 +1,8 @@
+<h1>Send a recommendation</h1>
+
+<%= form_with url: doctors_recommendation_path(@doctor_patient), model: @doctor_patient, method: :patch do |form| %>
+  <%= form.label :recommendation %> <br>
+  <%= form.text_area :recommendation %>
+  <br>
+  <%= form.submit "Send" %>
+<% end %>

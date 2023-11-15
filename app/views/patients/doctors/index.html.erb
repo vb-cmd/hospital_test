@@ -1,0 +1,31 @@
+<h1>Doctors</h1>
+
+<%= form_with method: :get do |form| %>
+  <%= form.label :category, "Find by category:" %>
+  <%= form.collection_select :category, @categories, :name, :name %>
+  <%= form.submit "Search" %>
+<% end %>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Doctor</th>
+      <th scope="col">Categories</th>
+      <th scope="col">Make an appointment</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @doctors.each do |doctor| %>
+      <tr>
+        <th scope="row"><%= "#{doctor.user.first_name} #{doctor.user.last_name}" %></th>
+        <td><%= doctor.categories.map(&:name).join(", ") %></td>
+        <td>
+          <%= form_with url: patients_recommendations_path do |form| %>
+            <%= form.hidden_field :doctor_id, value: doctor.id %>
+            <%= form.submit "Send" %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

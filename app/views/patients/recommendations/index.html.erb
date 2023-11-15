@@ -1,0 +1,20 @@
+<h1>Recommendations</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Doctor</th>
+      <th scope="col">Recommendation</th>
+      <th scope="col">Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @doctor_patients.each do |doctor_patient| %>
+      <tr>
+        <th scope="row"><%= "#{doctor_patient.doctor.user.first_name} #{doctor_patient.doctor.user.last_name}" %></th>
+        <td><%= doctor_patient.recommendation %></td>
+        <td><%= doctor_patient.closed ? "Closed" : "Not closed" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

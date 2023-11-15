@@ -1,0 +1,2 @@
+module Doctors::ProfilesHelper
+end
