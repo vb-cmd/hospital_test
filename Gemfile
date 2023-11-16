@@ -78,4 +78,4 @@ gem "erb-formatter", "~> 0.4.3", :group => :development
 
 gem "solargraph-rails", "~> 1.1", :group => :development
 
-gem "faker", "~> 3.2", :group => :development
+gem "faker", "~> 3.2"
