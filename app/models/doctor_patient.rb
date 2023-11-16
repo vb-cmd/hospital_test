@@ -4,6 +4,8 @@ class DoctorPatient < ApplicationRecord
   belongs_to :doctor
   belongs_to :patient
 
+  validates_with MaxPatientsValidator, on: :create
+
   def self.ransackable_attributes(_auth_object = nil)
     %w[closed created_at doctor_id id id_value patient_id recommendation updated_at]
   end

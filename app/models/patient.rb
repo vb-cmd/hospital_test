@@ -4,7 +4,7 @@ class Patient < ApplicationRecord
   has_many :doctor_patients
   has_many :doctors, through: :doctor_patients
 
-  validate :user_already_exists, on: :create
+  validates_with UserExistsValidator, on: :create
 
   extend SelectData
 
@@ -14,11 +14,5 @@ class Patient < ApplicationRecord
 
   def self.ransackable_associations(_auth_object = nil)
     %w[doctor_patients doctors user]
-  end
-
-  private
-
-  def user_already_exists
-    errors.add(:user, 'already exists') if Patient.exists?(user:)
   end
 end
