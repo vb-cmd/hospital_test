@@ -44,7 +44,7 @@ def create_categories
   puts 'Creating categories'
 
   %w[Category1 Category2 Category3 Category4 Category5].each do |name|
-    Category.create!(name: )
+    Category.create!(name:)
   end
 end
 
@@ -56,14 +56,12 @@ def create_recommendations
   end
 end
 
-if Rails.env.development?
-  create_admins
+create_admins
 
-  create_users
+create_users
 
-  create_categories
+create_categories
 
-  create_doctors_and_patients
+create_doctors_and_patients
 
-  create_recommendations
-end
+create_recommendations

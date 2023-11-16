@@ -1,24 +1,22 @@
 # README
+#### AdminUser
+    email: admin@example.com
+    password: password
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+####Patient
+    phone: '+1234567890', '+1234567891', '+1234567893', '+1234567894', '+1234567895'
+    password: password
 
-Things you may want to cover:
+####Doctor
+    phone: '+2234567890', '+2234567891', '+2234567893', '+2234567894', '+2234567895'
+    password: password
 
-* Ruby version
+Production:
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+```Ruby
+ENV["PSQL_DATABASE"]
+ENV["PSQL_USERNAME"]
+ENV["PSQL_PASSWORD"]
+ENV["PSQL_HOST"]
+ENV["PSQL_PORT"]
+```

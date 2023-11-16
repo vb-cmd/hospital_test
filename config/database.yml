@@ -79,6 +79,8 @@ test:
 #
 production:
   <<: *default
-  database: hospital_test_production
-  username: hospital_test
-  password: <%= ENV["HOSPITAL_TEST_DATABASE_PASSWORD"] %>
+  database: <%= ENV["PSQL_DATABASE"] %>
+  username: <%= ENV["PSQL_USERNAME"] %>
+  password: <%= ENV["PSQL_PASSWORD"] %>
+  host: <%= ENV["PSQL_HOST"] %>
+  port: <%= ENV["PSQL_PORT"] %>
