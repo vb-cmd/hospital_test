@@ -1,8 +1,10 @@
-require "test_helper"
+require_relative 'base_controller_test'
 
-class Patients::ProfilesControllerTest < ActionDispatch::IntegrationTest
-  test "should get index" do
-    get patient_profile_index_url
-    assert_response :success
+module Patients
+  class ProfilesControllerTest < BaseControllerTest
+    test 'should get index' do
+      get patients_profile_url
+      assert_response :success
+    end
   end
 end

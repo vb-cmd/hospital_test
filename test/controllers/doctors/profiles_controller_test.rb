@@ -1,8 +1,10 @@
-require "test_helper"
+require_relative 'base_controller_test'
 
-class Doctors::ProfilesControllerTest < ActionDispatch::IntegrationTest
-  test "should get show" do
-    get doctors_profiles_show_url
-    assert_response :success
+module Doctors
+  class ProfilesControllerTest < BaseControllerTest
+    test 'should get show' do
+      get doctors_profile_url
+      assert_response :success
+    end
   end
 end

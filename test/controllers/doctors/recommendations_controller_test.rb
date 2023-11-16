@@ -1,18 +1,25 @@
-require "test_helper"
+require_relative 'base_controller_test'
 
-class Doctors::RecommendationsControllerTest < ActionDispatch::IntegrationTest
-  test "should get index" do
-    get doctors_recommendations_index_url
-    assert_response :success
-  end
+module Doctors
+  class RecommendationsControllerTest < BaseControllerTest
+    setup do
+      @doctor_patients = doctor_patients(:one)
+      @category = categories(:one)
+    end
 
-  test "should get edit" do
-    get doctors_recommendations_edit_url
-    assert_response :success
-  end
+    test 'should get index' do
+      get doctors_recommendations_url
+      assert_response :success
+    end
 
-  test "should get update" do
-    get doctors_recommendations_update_url
-    assert_response :success
+    test 'should get edit' do
+      get edit_doctors_recommendation_url(@doctor_patients)
+      assert_response :success
+    end
+
+    test 'should update recommendation message' do
+      put doctors_recommendation_url(@doctor_patients), params: { doctor_patient: { recommendation: 'Message' } }
+      assert_redirected_to doctors_recommendations_url
+    end
   end
 end
