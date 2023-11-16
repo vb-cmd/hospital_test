@@ -14,4 +14,20 @@ class Doctor < ApplicationRecord
       all
     end
   end
+
+  def self.ransackable_attributes(_auth_object = nil)
+    %w[created_at id updated_at user_id]
+  end
+
+  def self.ransackable_associations(_auth_object = nil)
+    %w[categories doctor_categories doctor_patients patients user]
+  end
+
+  validate :user_already_exists
+
+  private
+
+  def user_already_exists
+    errors.add(:user, 'already exists') if Doctor.exists?(user:)
+  end
 end

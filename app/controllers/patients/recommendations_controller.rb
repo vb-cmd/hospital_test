@@ -1,9 +1,11 @@
 module Patients
   class RecommendationsController < BaseController
+    authorize_resource class: false
+
     before_action :set_patient
 
     def index
-      @doctor_patients = @patient.doctor_patients.includes(:doctor)
+      @doctor_patients = @patient.doctor_patients.includes(:doctor).order(closed: :asc)
     end
 
     def create

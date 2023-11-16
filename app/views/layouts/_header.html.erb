@@ -1,7 +1,7 @@
 <h1>Header</h1>
 
 <% if user_signed_in? %>
-  <h3><%= "Hello, #{current_user.first_name} #{current_user.last_name}" %></h3>
+  <h3>Hello, <%= current_user.full_name %></h3>
   <p><%= link_to "Edit", edit_user_registration_path %></p>
   <p><%= button_to "Sign Out", destroy_user_session_path, method: :delete %></p>
 <% else %>

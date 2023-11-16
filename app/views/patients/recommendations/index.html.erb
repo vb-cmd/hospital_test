@@ -11,9 +11,9 @@
   <tbody>
     <% @doctor_patients.each do |doctor_patient| %>
       <tr>
-        <th scope="row"><%= "#{doctor_patient.doctor.user.first_name} #{doctor_patient.doctor.user.last_name}" %></th>
+        <th scope="row"><%= doctor_patient.doctor.user.full_name %></th>
         <td><%= doctor_patient.recommendation %></td>
-        <td><%= doctor_patient.closed ? "Closed" : "Not closed" %></td>
+        <td><%= humanize_closed doctor_patient.closed %></td>
       </tr>
     <% end %>
   </tbody>

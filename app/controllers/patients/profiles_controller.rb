@@ -1,6 +1,6 @@
 module Patients
   class ProfilesController < BaseController
-    before_action :authenticate_user!
+    load_and_authorize_resource class: 'Patient'
 
     def show
       @patient = Patient.find_by(user: current_user)

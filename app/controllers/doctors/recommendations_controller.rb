@@ -3,8 +3,10 @@ module Doctors
     before_action :set_doctor
     before_action :set_doctor_patient, only: %i[edit update]
 
+    load_and_authorize_resource class: 'DoctorPatient'
+
     def index
-      @doctor_patients = @doctor.doctor_patients.includes(:patient)
+      @doctor_patients = @doctor.doctor_patients.includes(:patient).order(closed: :asc)
     end
 
     def edit; end

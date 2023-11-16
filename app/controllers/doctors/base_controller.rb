@@ -1,5 +1,5 @@
 module Doctors
-    class BaseController < ApplicationController
-        before_action :authenticate_user!
-    end
+  class BaseController < ApplicationController
+    before_action :authenticate_user!
+  end
 end
