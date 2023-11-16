@@ -1,16 +1,1 @@
 <p>Home</p>
-
-<% if user_signed_in? %>
-
-  <% if current_user.doctor? %>
-    <%= link_to "My Profile", doctors_profile_path %>
-    <%= link_to "Recommendations", doctors_recommendations_path %>
-  <% end %>
-
-  <% if current_user.patient? %>
-    <%= link_to "My Profile", patients_profile_path %>
-    <%= link_to "Doctors", patients_doctors_path %>
-    <%= link_to "Recommendations", patients_recommendations_path %>
-  <% end %>
-
-<% end %>

@@ -6,16 +6,18 @@ module Doctors
     load_and_authorize_resource class: 'DoctorPatient'
 
     def index
-      @doctor_patients = @doctor.doctor_patients.includes(:patient).order(closed: :asc)
+      @doctor_patients = @doctor.doctor_patients
+                                .includes(:patient)
+                                .order(created_at: :desc)
     end
 
     def edit; end
 
     def update
       if @doctor_patient.update(recommendation_params)
-        redirect_to doctors_recommendations_path, notice: 'Recommendation was successfully updated.'
+        redirect_to doctors_recommendations_path, notice: t('.success')
       else
-        redirect_to edit_doctors_recommendation_path(@doctor_patient), alert: 'Recommendation was not updated.'
+        redirect_to edit_doctors_recommendation_path(@doctor_patient), alert: t('.error')
       end
     end
 
@@ -30,7 +32,9 @@ module Doctors
     end
 
     def recommendation_params
-      params.require(:doctor_patient).permit(:recommendation).merge(closed: true)
+      params.require(:doctor_patient)
+            .permit(:recommendation)
+            .merge(closed: true)
     end
   end
 end

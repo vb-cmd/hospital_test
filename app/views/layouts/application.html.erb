@@ -11,10 +11,14 @@
   </head>
 
   <body>
-    <%= render 'layouts/header' %>
+    <%= render "layouts/header" %>
 
-    <%= yield %>
+    <div class="container text-center">
+      <p style="color:green;"><%= notice %></p>
+      <p style="color:red;"><%= alert %></p>
+      <%= yield %>
+    </div>
 
-    <%= render 'layouts/footer' %>
+    <%= render "layouts/footer" %>
   </body>
 </html>

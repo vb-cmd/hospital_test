@@ -47,24 +47,16 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_14_172522) do
 
   create_table "categories", force: :cascade do |t|
     t.string "name", null: false
+    t.integer "doctors_count"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_categories_on_name", unique: true
   end
 
-  create_table "doctor_categories", force: :cascade do |t|
-    t.bigint "doctor_id", null: false
-    t.bigint "category_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["category_id"], name: "index_doctor_categories_on_category_id"
-    t.index ["doctor_id"], name: "index_doctor_categories_on_doctor_id"
-  end
-
   create_table "doctor_patients", force: :cascade do |t|
     t.bigint "doctor_id", null: false
     t.bigint "patient_id", null: false
-    t.string "recommendation", null: false
+    t.text "recommendation"
     t.boolean "closed", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -74,8 +66,10 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_14_172522) do
 
   create_table "doctors", force: :cascade do |t|
     t.bigint "user_id", null: false
+    t.bigint "category_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["category_id"], name: "index_doctors_on_category_id"
     t.index ["user_id"], name: "index_doctors_on_user_id"
   end
 
@@ -103,10 +97,9 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_14_172522) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "doctor_categories", "categories"
-  add_foreign_key "doctor_categories", "doctors"
   add_foreign_key "doctor_patients", "doctors"
   add_foreign_key "doctor_patients", "patients"
+  add_foreign_key "doctors", "categories"
   add_foreign_key "doctors", "users"
   add_foreign_key "patients", "users"
 end

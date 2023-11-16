@@ -1,9 +1,11 @@
 <h1>Doctors</h1>
 
 <%= form_with method: :get do |form| %>
-  <%= form.label :category, "Find by category:" %>
-  <%= form.collection_select :category, @categories, :name, :name %>
-  <%= form.submit "Search" %>
+  <div class="mb-3">
+    <%= form.label :category, class: "form-label" %>
+    <%= form.select :category, @categories, { selected: params[:category] }, { class: "form-select" } %>
+  </div>
+  <%= form.submit "Search", class: "btn btn-primary" %>
 <% end %>
 
 <table class="table">
@@ -18,11 +20,12 @@
     <% @doctors.each do |doctor| %>
       <tr>
         <th scope="row"><%= doctor.user.full_name %></th>
-        <td><%= doctor.categories.map(&:name).join(", ") %></td>
+        <td><%= doctor.category.name %></td>
         <td>
+
           <%= form_with url: patients_recommendations_path do |form| %>
             <%= form.hidden_field :doctor_id, value: doctor.id %>
-            <%= form.submit "Send" %>
+            <%= form.submit "Send", class: "btn btn-primary" %>
           <% end %>
         </td>
       </tr>

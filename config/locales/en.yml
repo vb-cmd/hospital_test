@@ -9,7 +9,7 @@
 # In views, this is aliased to just `t`:
 #
 #     <%= t("hello") %>
-#
+ #
 # To use a different locale, set it with `I18n.locale`:
 #
 #     I18n.locale = :es
@@ -28,4 +28,13 @@
 #       enabled: "ON"
 
 en:
-  hello: "Hello world"
+  patients:
+    recommendations:
+      create: 
+        success: "Doctor was successfully added."
+        error: "Doctor was not added."
+  doctors:
+    recommendations:
+      update: 
+        success: "Recommendation was successfully updated."
+        error: "Recommendation was not updated."

@@ -11,7 +11,7 @@
   <tbody>
     <% @doctor_patients.each do |doctor_patient| %>
       <tr>
-        <th scope="row"><%= doctor_patient.doctor.user.full_name %></th>
+        <th scope="row"><%= doctor_patient.doctor_full_name %></th>
         <td><%= doctor_patient.recommendation %></td>
         <td><%= humanize_closed doctor_patient.closed %></td>
       </tr>

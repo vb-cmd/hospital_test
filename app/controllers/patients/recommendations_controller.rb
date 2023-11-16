@@ -3,18 +3,19 @@ module Patients
     authorize_resource class: false
 
     before_action :set_patient
+    before_action :initialize_doctor_patient, only: %i[create]
 
     def index
-      @doctor_patients = @patient.doctor_patients.includes(:doctor).order(closed: :asc)
+      @doctor_patients = @patient.doctor_patients
+                                 .includes(:doctor)
+                                 .order(created_at: :desc)
     end
 
     def create
-      @doctor_patient = initialize_doctor_patient
-
       if @doctor_patient.save
-        redirect_to patients_doctors_path, notice: 'Doctor was successfully added.'
+        redirect_to patients_doctors_path, notice: t('.success')
       else
-        redirect_to patients_doctors_path, alert: 'Doctor was not added.'
+        redirect_to patients_doctors_path, alert: t('.error')
       end
     end
 
@@ -27,10 +28,9 @@ module Patients
     def initialize_doctor_patient
       @doctor = Doctor.find(params[:doctor_id])
 
-      DoctorPatient.new(
+      @doctor_patient = DoctorPatient.new(
         patient: @patient,
-        doctor: @doctor,
-        recommendation: 'none'
+        doctor: @doctor
       )
     end
   end

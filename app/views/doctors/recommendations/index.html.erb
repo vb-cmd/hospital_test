@@ -12,10 +12,10 @@
   <tbody>
     <% @doctor_patients.each do |doctor_patient| %>
       <tr>
-        <th scope="row"><%= doctor_patient.patient.user.full_name %></th>
+        <th scope="row"><%= doctor_patient.patient_full_name %></th>
         <td><%= doctor_patient.recommendation %></td>
         <td><%= humanize_closed doctor_patient.closed %></td>
-        <td><%= link_to 'Send', edit_doctors_recommendation_path(doctor_patient) %></td>
+        <td><%= link_to 'Send', edit_doctors_recommendation_path(doctor_patient), role:'button', class: "btn btn-primary" %></td>
       </tr>
     <% end %>
   </tbody>

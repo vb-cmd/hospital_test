@@ -1,13 +1,54 @@
-<h1>Header</h1>
-
 <% if user_signed_in? %>
-  <h3>Hello, <%= current_user.full_name %></h3>
-  <p><%= link_to "Edit", edit_user_registration_path %></p>
-  <p><%= button_to "Sign Out", destroy_user_session_path, method: :delete %></p>
-<% else %>
-  <p><%= link_to "Sign In", new_user_session_path %></p>
-  <p><%= link_to "Sign Up", new_user_registration_path %></p>
-<% end %>
+  <div class="container text-center">
+    <div class="row">
+      <div class="col">
+        <h3>Hello,
+          <%= current_user.full_name %></h3>
+      </div>
+      <div class="col">
+        <p><%= link_to "Edit", edit_user_registration_path, role: "button", class: "btn btn-primary" %></p>
+        <p><%= button_to "Sign Out", destroy_user_session_path, method: :delete, class: "btn btn-danger" %></p>
+      </div>
+    </div>
+  </div>
 
-<p style="color:green;"><%= notice %></p>
-<p style="color:red;"><%= alert %></p>
+  <% if current_user.doctor? %>
+    <div class="container text-center">
+      <div class="row">
+        <div class="col">
+          <%= link_to "My Profile", doctors_profile_path, class: "link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" %>
+        </div>
+        <div class="col">
+          <%= link_to "Recommendations", doctors_recommendations_path, class: "link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+  <% if current_user.patient? %>
+    <div class="container text-center">
+      <div class="row">
+        <div class="col">
+          <%= link_to "My Profile", patients_profile_path, class: "link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" %>
+        </div>
+        <div class="col">
+          <%= link_to "Doctors", patients_doctors_path, class: "link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" %>
+        </div>
+        <div class="col">
+          <%= link_to "Recommendations", patients_recommendations_path, class: "link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+<% else %>
+  <div class="container text-center">
+    <div class="row">
+      <div class="col">
+        <p><%= link_to "Sign In", new_user_session_path, class: "link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" %></p>
+      </div>
+      <div class="col">
+        <p><%= link_to "Sign Up", new_user_registration_path, class: "link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" %></p>
+      </div>
+    </div>
+  </div>
+<% end %>

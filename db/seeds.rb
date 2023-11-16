@@ -2,51 +2,68 @@
 
 require 'faker'
 
-if Rails.env.development?
+def create_admins
   puts 'Creating an admin user'
 
   AdminUser.create!(email: 'admin@example.com',
                     password: 'password',
                     password_confirmation: 'password')
+end
 
+def create_users
   puts 'Creating users'
   {
-    patient: '+1234567890',
-    doctor: '+1234567891'
-  }.each do |role, phone_number|
-    User.create!(email: "#{role}@example.com",
-                 password: 'password',
-                 password_confirmation: 'password',
-                 phone_number:,
-                 role:,
-                 first_name: Faker::Name.first_name,
-                 last_name: Faker::Name.last_name)
+    patient: ['+1234567890', '+1234567891', '+1234567893', '+1234567894', '+1234567895'],
+    doctor: ['+2234567890', '+2234567891', '+2234567893', '+2234567894', '+2234567895']
+  }.each do |role, phone_numbers|
+    phone_numbers.each do |phone_number|
+      User.create!(email: Faker::Internet.email,
+                   password: 'password',
+                   password_confirmation: 'password',
+                   phone_number:,
+                   role:,
+                   first_name: Faker::Name.first_name,
+                   last_name: Faker::Name.last_name)
+    end
   end
+end
 
-  puts 'Creating patients and doctors'
+def create_doctors_and_patients
+  puts 'Creating doctors and patients'
 
   User.all.each do |user|
-    case user.role
-    when 'patient' then Patient.create!(user:)
-    when 'doctor' then Doctor.create!(user:)
+    if user.doctor?
+      Doctor.create!(user:, category: Category.all.sample)
+    elsif user.patient?
+      Patient.create!(user:)
     end
   end
+end
 
-  puts 'Creating a recomendation'
+def create_categories
+  puts 'Creating categories'
+
+  %w[Category1 Category2 Category3 Category4 Category5].each do |name|
+    Category.create!(name: )
+  end
+end
+
+def create_recommendations
+  puts 'Creating recomendations'
 
   Doctor.all.each do |doctor|
-    Patient.all.each do |patient|
-      DoctorPatient.create!(doctor:, patient:, recommendation: 'Some recomendation')
-    end
+    DoctorPatient.create!(doctor:, patient: Patient.all.sample)
   end
+end
 
-  puts 'Creating a category'
-  Category.create!(name: 'Category 1')
+if Rails.env.development?
+  create_admins
 
-  puts 'Adding a doctor category'
+  create_users
 
-  Category.all.each do |category|
-    doctor = Doctor.all.sample
-    DoctorCategory.create!(doctor:, category:)
-  end
+  create_categories
+
+  create_doctors_and_patients
+
+  create_recommendations
 end
